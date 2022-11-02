@@ -1,17 +1,39 @@
 #!/bin/bash
 
-# This is my post installation script for arch linux
+# This is my post installation script for Arch Linux
 # This script is written for my device and may not work for you
 
-echo "Hi! This is post installation script for Luka281."
-echo "Script works on arch linux only!"
+echo "Hi! This is post installation script for Luka287"
+echo "Script works on Arch Linux only!"
 
 echo " "
 
+echo "This script assumes that you have installed sudo and networkmanager and you are logged in as user that is in wheel user group"
+
 adf=$(pwd)
 
-down_arr=() # array for pacman installs
-down_arr_yay=() # array for aur installs
+sd=0
+down_arr_yay=() 
+
+# array for packages
+
+echo $ich
+function Yay {
+    echo -n "::Installing yay and git is neccecery to continue [y/n]: ";
+    read;
+    if [ ${REPLY} = "y" ]; then
+	    echo "Necceccery programs will be installed!"
+           
+	    sudo pacman -S make git
+	    sleep 0.2
+	    git clone https://aur.archlinux.org/yay.git;
+            cd yay;
+            makepkg -si
+        $adf
+    else
+        echo "Yay download cancelled!"
+    fi;
+}
 
 function Wifi {
     echo -n "::Do you want wifi and other drivers set up on your system? [y/n]: ";
@@ -19,17 +41,36 @@ function Wifi {
     if [ ${REPLY} = "y" ]; then
 	    echo "Neccecery programs will be installed!"
 
-	    sudo pacman -S wireless_tools network-manager-applet broadcom-wl-dkms linux-headers wpa_supplicant xf86-video-intel intel-ucode networkmanager
-    	    
-	    sleep 0.5
-
-	    sudo modprobe -r b44 b43 b43legacy ssb brcmsmac bcma
-	    sudo modprobe wl 
-
+            down_arr_yay[${#down_arr_yay[@]}]="wireless_tools"
+            down_arr_yay[${#down_arr_yay[@]}]="linux-headers"
+            down_arr_yay[${#down_arr_yay[@]}]="wpa_supplicant"
+            down_arr_yay[${#down_arr_yay[@]}]="xf86-video-intel"
+            down_arr_yay[${#down_arr_yay[@]}]="xf86-video-vesa"
+            down_arr_yay[${#down_arr_yay[@]}]="sof-firmware"
+            down_arr_yay[${#down_arr_yay[@]}]="alsa-utils"
+   
     else 
 	    echo "Wifi set up cancelled!"
     fi;
 }
+
+
+function Xorg {
+    echo -n "::Do you want to install xorg and sddm? [y/n]: ";
+    read;
+    if [ ${REPLY} = "y" ]; then
+	    echo "Neccecery programs will be installed!"
+
+            down_arr_yay[${#down_arr_yay[@]}]="xorg"
+            down_arr_yay[${#down_arr_yay[@]}]="sddm"
+        # sudo systemctl enable sddm
+	    set_arr[${set_arr[@]}]="sddm"
+	    sd=${sd + 1}
+    else 
+	    echo "Xorg set up cancelled!"
+    fi;
+}
+
 
 function Awesomewm {
     echo -n "::Do you want to install custom awesomewm? [y/n]: ";
@@ -37,12 +78,15 @@ function Awesomewm {
     if [ ${REPLY} = "y" ]; then
 	    echo "Neccecery programs will be added"
 
-            down_arr[${#down_arr[@]}]="awesome"
-            down_arr[${#down_arr[@]}]="brightnessctl"
-            down_arr[${#down_arr[@]}]="light"
-            down_arr[${#down_arr[@]}]="acpi"
-            down_arr[${#down_arr[@]}]="lxappearance"
-            down_arr[${#down_arr[@]}]="shotgun"
+            down_arr_yay[${#down_arr_yay[@]}]="awesome"
+            down_arr_yay[${#down_arr_yay[@]}]="brightnessctl"
+            down_arr_yay[${#down_arr_yay[@]}]="light-git"
+            down_arr_yay[${#down_arr_yay[@]}]="acpi"
+            down_arr_yay[${#down_arr_yay[@]}]="lxappearance"
+            down_arr_yay[${#down_arr_yay[@]}]="shotgun"
+            down_arr_yay[${#down_arr_yay[@]}]="pavucontrol"
+            down_arr_yay[${#down_arr_yay[@]}]="network-manager-applet"
+            down_arr_yay[${#down_arr_yay[@]}]="xss-lock"
 
 	    #configs
 	    git clone https://github.com/Luka281/awesome.git;
@@ -56,25 +100,7 @@ function Awesomewm {
 	    echo "Awesomewm downdoad cancelled!"
     fi;
 
-}	    
-
-
-function Yay {
-    echo -n "::Installing yay is neccecery to continue [y/n]: ";
-    read;
-    if [ ${REPLY} = "y" ]; then
-	    echo "Necceccery programs will be installed!"
-           
-	    sudo pacman -S make
-	    sleep 0.2
-	    git clone https://aur.archlinux.org/yay.git;
-            cd yay;
-            makepkg -si
-        $adf
-    else
-        echo "Yay download cancelled!"
-    fi;
-}
+}	 
 
 
 function Apps {
@@ -82,31 +108,29 @@ function Apps {
     read;
     if [ ${REPLY} = "y" ]; then
 	    echo "Necceccery programs will be installed"
-            down_arr_yay[${#down_arr_yay[@]}]="librewolf-bin"
-            down_arr[${#down_arr[@]}]="vim"
-            down_arr[${#down_arr[@]}]="vlc"
-            down_arr[${#down_arr[@]}]="unzip"
-            down_arr[${#down_arr[@]}]="unrar"
-            down_arr_yay[${#down_arr_yay[@]}]="tutanota-desktop-bin"
-            down_arr[${#down_arr[@]}]="qbittorrent"
-            down_arr_yay[${#down_arr_yay[@]}]="vscodium-bin"
-            down_arr[${#down_arr[@]}]="neofetch"
-            down_arr[${#down_arr[@]}]="nemo"
-            down_arr[${#down_arr[@]}]="kitty"
-            down_arr[${#down_arr[@]}]="codeblocks"
-            down_arr[${#down_arr[@]}]="xreader"
-            down_arr[${#down_arr[@]}]="pqiv"
-            down_arr[${#down_arr[@]}]="gparted"
-            down_arr_yay[${#down_arr_yay[@]}]="etcher-bin"
-            down_arr[${#down_arr[@]}]="alsa-utils"
-            down_arr[${#down_arr[@]}]="htop"
-            down_arr[${#down_arr[@]}]="sddm"
+             down_arr_yay[${#down_arr_yay[@]}]="librewolf-bin"
+	     down_arr_yay[${#down_arr_yay[@]}]="android-tools"
+             down_arr_yay[${#down_arr_yay[@]}]="codeblocks"
+             down_arr_yay[${#down_arr_yay[@]}]="etcher-bin"
+             down_arr_yay[${#down_arr_yay[@]}]="gedit"
+             down_arr_yay[${#down_arr_yay[@]}]="htop"
+             down_arr_yay[${#down_arr_yay[@]}]="kitty"
+             down_arr_yay[${#down_arr_yay[@]}]="neofetch"
+             down_arr_yay[${#down_arr_yay[@]}]="unzip"
+             down_arr_yay[${#down_arr_yay[@]}]="vim"
+             down_arr_yay[${#down_arr_yay[@]}]="tutanota-desktop-bin"
+             down_arr_yay[${#down_arr_yay[@]}]="virtualbox"
+             down_arr_yay[${#down_arr_yay[@]}]="vlc"
+             down_arr_yay[${#down_arr_yay[@]}]="vscodium-bin"
+             down_arr_yay[${#down_arr_yay[@]}]="librewolf-bin"
+
     else
 	    echo "Apps download cancelled!"
     
     fi;
 }
 
+# PICOM GAQ SASAKETEBELI
 
 
 function Fonts {
@@ -115,14 +139,14 @@ function Fonts {
     if [ ${REPLY} = "y" ]; then
 	    echo "Necceccery programs will be installed"
             down_arr_yay[${#down_arr_yay[@]}]="spleen-font"
-            down_arr[${#down_arr[@]}]="cantarell-fonts"
-            down_arr[${#down_arr[@]}]="adobe-source-code-pro-fonts"
-            down_arr[${#down_arr[@]}]="gnu-free-fonts"
-            down_arr[${#down_arr[@]}]="xorg-fonts-100dpi"
-            down_arr[${#down_arr[@]}]="xorg-fonts-75dpi"
-            down_arr[${#down_arr[@]}]="xorg-fonts-alias-100dpi"
-            down_arr[${#down_arr[@]}]="xorg-fonts-alias-75dpi"
-            down_arr[${#down_arr[@]}]="ttf-linux-libertine"
+            down_arr_yay[${#down_arr_yay[@]}]="cantarell-fonts"
+            down_arr_yay[${#down_arr_yay[@]}]="adobe-source-code-pro-fonts"
+            down_arr_yay[${#down_arr_yay[@]}]="gnu-free-fonts"
+            down_arr_yay[${#down_arr_yay[@]}]="xorg-fonts-100dpi"
+            down_arr_yay[${#down_arr_yay[@]}]="xorg-fonts-75dpi"
+            down_arr_yay[${#down_arr_yay[@]}]="xorg-fonts-alias-100dpi"
+            down_arr_yay[${#down_arr_yay[@]}]="xorg-fonts-alias-75dpi"
+            down_arr_yay[${#down_arr_yay[@]}]="ttf-linux-libertine"
             down_arr_yay[${#down_arr_yay[@]}]="nerd-fonts-droid-sans-mono"
             down_arr_yay[${#down_arr_yay[@]}]="fonts-droid-fallback"
             down_arr_yay[${#down_arr_yay[@]}]="ttf-borg-sans-mono"
@@ -135,19 +159,18 @@ function Fonts {
 }
 
 
-
 function Themes {
     echo -n "::Do you want to install your sddm and system themes and icons? [y/n]: ";
     read;
     if [ ${REPLY} = "y" ]; then
 	    echo "Necceccery programs will be installed"
             down_arr_yay[${#down_arr_yay[@]}]="archlinux-themes-sddm"
-            down_arr[${#down_arr[@]}]="deepin-gtk-theme"
+            down_arr_yay[${#down_arr_yay[@]}]="deepin-gtk-theme"
             down_arr_yay[${#down_arr_yay[@]}]="multicolor-sddm-theme"
             down_arr_yay[${#down_arr_yay[@]}]="nordic-polar-theme"
-            down_arr[${#down_arr[@]}]="oxygen-icons"
-            down_arr[${#down_arr[@]}]="pop-gtk-theme"
-            down_arr[${#down_arr[@]}]="pop-gtk-theme"
+            down_arr_yay[${#down_arr_yay[@]}]="oxygen-icons"
+            down_arr_yay[${#down_arr_yay[@]}]="pop-gtk-theme"
+            down_arr_yay[${#down_arr_yay[@]}]="pop-gtk-theme"
             down_arr_yay[${#down_arr_yay[@]}]="sddm-theme-astronaut"
             down_arr_yay[${#down_arr_yay[@]}]="xcursor-oxygen"
             down_arr_yay[${#down_arr_yay[@]}]="qogir-icon-theme"
@@ -160,67 +183,37 @@ function Themes {
             down_arr_yay[${#down_arr_yay[@]}]="nordic-theme"
             down_arr_yay[${#down_arr_yay[@]}]="tela-icon-theme"
 
-            sleep 0.5
-
-            #tar zxvf dots.tar.gz
-            unzip dots.zip
-            sleep 0.5
-
-            mv dots/.icons ~/
-            mv dots/.themes ~/
-
-            sleep 0.5
-
-            sudo mv sddmthemes.tar.gz /usr/share/sddm/themes/
-	        sudo tar zxvf /usr/share/sddm/themes/sddmthemes.tar.gz
     
     else
 	    echo "Themes/icons install cancelled!"
-
     fi;
 }
-
-sleep 0.3
 
 Yay
 
 sleep 0.3
 
-echo " "
-
-Fonts
+Wifi
 
 sleep 0.3
 
-echo " "
-
-Wifi   
+Xorg
 
 sleep 0.3
-
-echo " "
 
 Awesomewm
 
 sleep 0.3
 
-echo " "
-
-Apps
+Fonts
 
 sleep 0.3
-
-echo " "
 
 Themes
 
 sleep 0.3
 
-echo " "
-
-if [ ${#down_arr[@]} != 0 ]; then
-	sudo pacman -S ${down_arr[@]}
-fi;
+Apps
 
 sleep 0.3
 
@@ -228,3 +221,8 @@ if [ ${#down_arr_yay[@]} != 0 ]; then
 	yay -S ${down_arr_yay[@]}
 fi;
 
+sleep 0.1
+
+if [ sd = 1 ]; then 
+	sudo systemctl enable sddm
+fi;
