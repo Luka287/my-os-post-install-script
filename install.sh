@@ -103,9 +103,8 @@ function Awesomewm {
         down_arr_yay[${#down_arr_yay[@]}]="picom-git"
 
         git clone https://github.com/Luka287/picom.git
-        cd picom
-        chmod +x setup
-        ./setup
+        mkdir ~/.config/picom
+        mv picom/picom.conf ~/.config/picom
         cd $adf
     else
 	    echo "Awesomewm downdoad cancelled!"
