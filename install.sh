@@ -96,6 +96,16 @@ function Awesomewm {
 	    cd ~/.config/dmenu/
 	    sudo make install
         cd $adf
+
+        echo "setting up picom!"
+        sleep 1;
+
+        down_arr_yay[${#down_arr_yay[@]}]="picom-git"
+
+        git clone https://github.com/Luka287/picom.git
+        cd picom
+        ./setup
+        cd $adf
     else
 	    echo "Awesomewm downdoad cancelled!"
     fi;
@@ -223,6 +233,6 @@ fi;
 
 sleep 0.1
 
-if [ sd = 1 ]; then 
+if [ sd==1 ]; then 
 	sudo systemctl enable sddm
 fi;
