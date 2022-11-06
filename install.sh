@@ -89,9 +89,9 @@ function Awesomewm {
             down_arr_yay[${#down_arr_yay[@]}]="xss-lock"
 
 	    #configs
-	    git clone https://github.com/Luka281/awesome.git;
+	    git clone https://github.com/Luka287/awesome.git;
 	    mv awesome ~/.config/
-	    git clone https://github.com/Luka281/dmenu.git
+	    git clone https://github.com/Luka287/dmenu.git
 	    mv dmenu ~/.config/
 	    cd ~/.config/dmenu/
 	    sudo make install
@@ -104,6 +104,7 @@ function Awesomewm {
 
         git clone https://github.com/Luka287/picom.git
         cd picom
+        chmod +x setup
         ./setup
         cd $adf
     else
