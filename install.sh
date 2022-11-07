@@ -29,7 +29,7 @@ function Yay {
 	    git clone https://aur.archlinux.org/yay.git;
             cd yay;
             makepkg -si
-        $adf
+        cd $adf
     else
         echo "Yay download cancelled!"
     fi;
@@ -65,7 +65,7 @@ function Xorg {
             down_arr_yay[${#down_arr_yay[@]}]="sddm"
         # sudo systemctl enable sddm
 	    set_arr[${set_arr[@]}]="sddm"
-	    sd=${sd + 1}
+	    sd=${sd+1}
     else 
 	    echo "Xorg set up cancelled!"
     fi;
