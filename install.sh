@@ -48,6 +48,8 @@ function Wifi {
             down_arr_yay[${#down_arr_yay[@]}]="xf86-video-vesa"
             down_arr_yay[${#down_arr_yay[@]}]="sof-firmware"
             down_arr_yay[${#down_arr_yay[@]}]="alsa-utils"
+            down_arr_yay[${#down_arr_yay[@]}]="pulseaudio-alsa"
+            down_arr_yay[${#down_arr_yay[@]}]="pulseaudio"
    
     else 
 	    echo "Wifi set up cancelled!"
