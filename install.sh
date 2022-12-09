@@ -122,7 +122,6 @@ function Apps {
 	     down_arr_yay[${#down_arr_yay[@]}]="android-tools"
              down_arr_yay[${#down_arr_yay[@]}]="codeblocks"
              down_arr_yay[${#down_arr_yay[@]}]="etcher-bin"
-             down_arr_yay[${#down_arr_yay[@]}]="gedit"
              down_arr_yay[${#down_arr_yay[@]}]="htop"
              down_arr_yay[${#down_arr_yay[@]}]="kitty"
              down_arr_yay[${#down_arr_yay[@]}]="neofetch"
