@@ -115,6 +115,32 @@ function Awesomewm {
 }	 
 
 
+function Dwm {
+    echo -n "::Do you want to install custop dwm? [y/n]: ";
+    read;
+    if [ ${REPLY} = "y" ]; then
+	    echo "Neccecery programs will be added"
+
+            down_arr_yay[${#down_arr_yay[@]}]="feh"
+
+	    #configs
+	    git clone https://github.com/Luka287/dwm-config.git;
+	    cd dwm-config/;
+            ./setup.sh;
+            cd $adf
+                
+         
+        echo "i3-lock fancy will be created!";
+
+
+        sleep 1;
+
+    else
+	    echo "Dwm downdoad cancelled!"
+    fi;
+
+}
+
 function Apps {
     echo -n "::Do you want to install your apps? [y/n]: ";
     read;
@@ -213,6 +239,10 @@ Xorg
 sleep 0.3
 
 Awesomewm
+
+sleep 0.3
+
+Dwm
 
 sleep 0.3
 
