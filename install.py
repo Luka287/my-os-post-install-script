@@ -2,9 +2,7 @@ import subprocess
 import os
 
 from distutils.spawn import find_executable
-
-tt = " git make "
-os.system('yay -S %s' % tt)
+import shutil 
 
 
 hi = subprocess.run(["echo", "Hi! This is post installation script for Luka287"])
@@ -35,9 +33,10 @@ def checkApp(app):
 
 
 def Yay():
+    
     yayIns = 0
     askList = []
-    if(checkApp("/bin/yvay") == 0):
+    if(checkApp("/bin/yay") == 0):
         askList.append("yay")
     
     if(checkApp("/bin/git") == 0):
@@ -47,18 +46,27 @@ def Yay():
         askList.append("make")
 
 
-
-    for i in askList:
-        if(i != "yay"):
-            askDown = str(input('To continue installation you must install "' + i + '" [y/n]: '))
-            if(askDown == "y" or askDown == "Y"):
-                download = subprocess.run(["sudo", "pacman", "-S", i])
+    mustIns = ""
+    for r in askList:
+        if(r != "yay"):
+            mustIns = mustIns + " " + r
         else:
             yayIns = 1
+
+    if(mustIns == ""):
+        return
+    
+    askDown = str(input('To continue installation you must install "' + mustIns + '" [y/n]: '))
+
+    if(askDown == "y" or askDown == "Y"):
+        os.system('sudo pacman -S %s' % mustIns)
+    else:
+        exit
+
     
 
     if(yayIns == 1):
-        insYay = subprocess.run(["bash", "install-yay.sh"])
+       insYay = subprocess.run(["bash", "install-yay.sh"])
 
     
     print("Installation setup complate!")
@@ -86,7 +94,7 @@ def Display():
         def DM():
             askDownDm = str(input('Which display manager do you want to install? [1-gdm; 2-sddm]: '))
             insDm = askDownDm.replace("", " ")
-            if(insDm.count > 1):
+            if(insDm.count != 1):
                 print("Error! You can select only one!")
                 DM()
             elif(insDm == "1"):
@@ -95,10 +103,10 @@ def Display():
             elif(insDm == "2"):
                 toInstall.append("sddm")
                 dm = "sddm"
-        DM()
+
 
 def WM():
-    askDownWm = str(input('Which WM/DEs do you want to install? [1-awesome 2-dwm 3-kde 4-hyprland 5-plasma 6-gnome]: '))
+    askDownWm = str(input('Which WM/DEs do you want to install? [1-awesome 2-dwm 3-hyprland 4-plasma 5-gnome]: '))
     for v in askDownWm:
         if(v == "1"):
             # Aswesomewm configs will be added from github
@@ -107,12 +115,10 @@ def WM():
             # This will change with dwm compalation
             toInstall.append("dwm")
         elif(v == "3"):
-            toInstall.append("kde")
-        elif(v == "4"):
             toInstall.append("hyprland")
-        elif(v == "5"):
+        elif(v == "4"):
             toInstall.append("plasma")
-        elif(v == "6"):
+        elif(v == "5"):
             toInstall.append("gnome")
 
 
@@ -203,10 +209,10 @@ Apps()
 FIT()
 
 def Install():
-    installList = "";
+    installList = ""
     for c in toInstall:
-        installList = installList + " " + c;
-    os.system('yay -S %s' & installList)
+        installList = installList + " " + c
+    os.system('yay -S %s' % installList)
 
     os.system('sudo systemctl enable %s' % dm)
 
