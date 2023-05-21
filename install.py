@@ -54,8 +54,10 @@ def Yay():
         else:
             yayIns = 1
 
-    if(mustIns == ""):
+    if(mustIns == "" and yayIns != 1):
         return
+    elif(mustIns == "" and yayIns == 1):
+        mustIns = "yay"
     
     askDown = str(input('To continue installation you must install "' + mustIns + '" [y/n]: '))
 
