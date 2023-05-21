@@ -158,7 +158,7 @@ def Apps():
         toInstall_Pacman.append("shotgun")
         toInstall_Pacman.append("swayidle")
         toInstall_Pacman.append("virtualbox-guest-utils")
-        toInstall_Yay.append("waybar-hyprland")
+#        toInstall_Yay.append("waybar-hyprland")
         toInstall_Yay.append("wlogout")
         toInstall_Pacman.append("xautolock")
         toInstall_Pacman.append("xss-lock")
@@ -209,22 +209,23 @@ Apps()
 FIT()
 
 
-def Install():
+def Install_Pacman():
     installList_Pacman = ""
-    installList_Yay = ""
-
+    
     for p in toInstall_Pacman:
         installList_Pacman = installList_Pacman + " " + p
     os.system('yay -S %s' % installList_Pacman)
+
+
+def Install_Yay():
+    installList_Yay = ""
 
     for y in toInstall_Yay:
         installList_Yay = installList_Yay + " " + y
     os.system('yay -S %s' % installList_Yay)
 
-    os.system('sudo systemctl enable %s' % dm)
 
+Install_Pacman()
+Install_Yay()
 
-
-Install()
-
-print("installation complate!")
+print("Installation complate!")
