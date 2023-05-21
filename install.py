@@ -21,7 +21,8 @@ crux = str(location.stdout)
 
 curdir = crux[2:-3]
 
-toInstall = []
+toInstall_Pacman = []
+toInstall_Yay = []
 dm = ""
 
 def checkApp(app):
@@ -76,20 +77,20 @@ def Yay():
 def Drivers():
     askDownDr = str(input('Do you want wifi and other drivers set up on your system? [y/n]: '))
     if(askDownDr == "y" or askDownDr == "Y"):
-        toInstall.append("wireless_tools")
-        toInstall.append("linux-headers")
-        toInstall.append("wpa_supplicant")
-        toInstall.append("xf86-video-intel")
-        toInstall.append("sof-firmware")
-        toInstall.append("alsa-utils")
-        toInstall.append("pulseaudio-alsa")
-        toInstall.append("pulseaudio")
-        toInstall.append("acpi")
+        toInstall_Pacman.append("wireless_tools")
+        toInstall_Pacman.append("linux-headers")
+        toInstall_Pacman.append("wpa_supplicant")
+        toInstall_Pacman.append("xf86-video-intel")
+        toInstall_Pacman.append("sof-firmware")
+        toInstall_Pacman.append("alsa-utils")
+        toInstall_Pacman.append("pulseaudio-alsa")
+        toInstall_Pacman.append("pulseaudio")
+        toInstall_Pacman.append("acpi")
 
 def Display():
     askDownDis = str(input('Do you want to install Xorg on your system? [y/n]: '))
     if(askDownDis == "y" or askDownDis == "Y"):
-        toInstall.append("xorg")
+        toInstall_Pacman.append("xorg")
 
         def DM():
             askDownDm = str(input('Which display manager do you want to install? [1-gdm; 2-sddm]: '))
@@ -98,10 +99,10 @@ def Display():
                 print("Error! You can select only one!")
                 DM()
             elif(insDm == "1"):
-                toInstall.append("gdm")
+                toInstall_Pacman.append("gdm")
                 dm = "gdm"
             elif(insDm == "2"):
-                toInstall.append("sddm")
+                toInstall_Pacman.append("sddm")
                 dm = "sddm"
 
 
@@ -110,91 +111,88 @@ def WM():
     for v in askDownWm:
         if(v == "1"):
             # Aswesomewm configs will be added from github
-            toInstall.append("awesome")
+            toInstall_Pacman.append("awesome")
         elif(v == "2"):
             # This will change with dwm compalation
-            toInstall.append("dwm")
+            toInstall_Yay.append("dwm")
         elif(v == "3"):
-            toInstall.append("hyprland")
+            toInstall_Pacman.append("hyprland")
         elif(v == "4"):
-            toInstall.append("plasma")
+            toInstall_Pacman.append("plasma")
         elif(v == "5"):
-            toInstall.append("gnome")
+            toInstall_Pacman.append("gnome")
 
 
 def Apps():
     print("Apps included: librewolf, vscodium, vlc, kitty, thunar, keepassxc, etcher, virtualbox, tutanota, qbittorrent, neovim, htop, gparted, nitrogen, android_tools ")
     askDownApp = str(input('Do you want to install your apps? [y/n]: '))
     if(askDownApp == "y" or askDownApp == "Y"):
-        toInstall.append("librewolf-bin")
-        toInstall.append("android-tools")
-        toInstall.append("etcher-bin")
-        toInstall.append("htop")
-        toInstall.append("kitty")
-        toInstall.append("neofetch")
-        toInstall.append("unzip")
-        toInstall.append("vim")
-        toInstall.append("tutanota-desktop-bin")
-        toInstall.append("virtualbox")
-        toInstall.append("vlc")
-        toInstall.append("vscodium-bin")
-        toInstall.append("firefox")
-        toInstall.append("android-tools")
-        toInstall.append("brightnessctl")
-        toInstall.append("dunst")
-        toInstall.append("filelight")
-        toInstall.append("light-git")
-        toInstall.append("lxappearance")
-        toInstall.append("neovim")
-        toInstall.append("network-manager-applet")
-        toInstall.append("pamixer")
-        toInstall.append("pavucontrol")
-        toInstall.append("picom-git")
-        toInstall.append("pqiv")
-        toInstall.append("pulseaudio-ctl")
-        toInstall.append("qbittorrent")
-        toInstall.append("shotgun")
-        toInstall.append("swayidle")
-        toInstall.append("virtualbox-guest-utils")
-        toInstall.append("waybar-hyprland")
-        toInstall.append("wlogout")
-        toInstall.append("xautolock")
-        toInstall.append("xss-lock")
-        toInstall.append("gparted")
-        toInstall.append("swaybg")
+        toInstall_Yay.append("librewolf-bin")
+        toInstall_Pacman.append("android-tools")
+        toInstall_Yay.append("etcher-bin")
+        toInstall_Pacman.append("htop")
+        toInstall_Pacman.append("kitty")
+        toInstall_Pacman.append("neofetch")
+        toInstall_Pacman.append("unzip")
+        toInstall_Pacman.append("vim")
+        toInstall_Yay.append("tutanota-desktop-bin")
+        toInstall_Pacman.append("virtualbox")
+        toInstall_Pacman.append("vlc")
+        toInstall_Yay.append("vscodium-bin")
+        toInstall_Pacman.append("firefox")
+        toInstall_Pacman.append("brightnessctl")
+        toInstall_Pacman.append("dunst")
+        toInstall_Pacman.append("filelight")
+        toInstall_Yay.append("light-git")
+        toInstall_Pacman.append("lxappearance")
+        toInstall_Pacman.append("neovim")
+        toInstall_Pacman.append("network-manager-applet")
+        toInstall_Pacman.append("pamixer")
+        toInstall_Pacman.append("pavucontrol")
+        toInstall_Yay.append("picom-git")
+        toInstall_Pacman.append("pqiv")
+        toInstall_Yay.append("pulseaudio-ctl")
+        toInstall_Pacman.append("qbittorrent")
+        toInstall_Pacman.append("shotgun")
+        toInstall_Pacman.append("swayidle")
+        toInstall_Pacman.append("virtualbox-guest-utils")
+        toInstall_Yay.append("waybar-hyprland")
+        toInstall_Yay.append("wlogout")
+        toInstall_Pacman.append("xautolock")
+        toInstall_Pacman.append("xss-lock")
+        toInstall_Pacman.append("gparted")
+        toInstall_Pacman.append("swaybg")
 
 
 
 def FIT():
         askDownApp = str(input('Do you want to install your fonts, themes and icons? [y/n]: '))
         if(askDownApp == "y" or askDownApp == "Y"):
-            toInstall.append("adobe-source-sans-fonts")
-            toInstall.append("colloid-gtk-theme-git")
-            toInstall.append("deepin-gtk-theme")
-            toInstall.append("fluent-cursor-theme-git")
-            toInstall.append("fonts-droid-fallback")
-            toInstall.append("multicolor-sddm-theme")
-            toInstall.append("nordic-polar-theme")
-            toInstall.append("nordic-standard-buttons-theme")
-            toInstall.append("nordic-theme")
-            toInstall.append("otf-droid-nerd")
-            toInstall.append("oxygen-icons")
-            toInstall.append("oxygen")
-            toInstall.append("pop-gtk-theme")
-            toInstall.append("qogir-gtk-theme")
-            toInstall.append("sddm-theme-astronaut")
-            toInstall.append("spleen-font")
-            toInstall.append("ttf-borg-sans-mono")
-            toInstall.append("ttf-linux-libertine")
-            toInstall.append("ttf-mononoki-nerd")
-            toInstall.append("ttf-roboto")
-            toInstall.append("ttf-ubuntu-font-family")
-            toInstall.append("tela-icon-theme")
-            toInstall.append("adwaita-dark")
-            toInstall.append("qogir-icon-theme")
-            toInstall.append("xcursor-oxygen")
-            toInstall.append("archlinux-themes-sddm")
-
+            toInstall_Pacman.append("adobe-source-sans-fonts")
+            toInstall_Yay.append("colloid-gtk-theme-git")
+            toInstall_Pacman.append("deepin-gtk-theme")
+            toInstall_Yay.append("fluent-cursor-theme-git")
+            toInstall_Yay.append("fonts-droid-fallback")
+            toInstall_Yay.append("multicolor-sddm-theme")
+            toInstall_Yay.append("nordic-polar-theme")
+            toInstall_Yay.append("nordic-standard-buttons-theme")
+            toInstall_Yay.append("nordic-theme")
+            toInstall_Pacman.append("otf-droid-nerd")
+            toInstall_Pacman.append("oxygen-icons")
+            toInstall_Pacman.append("oxygen")
+            toInstall_Pacman.append("pop-gtk-theme")
+            toInstall_Yay.append("qogir-gtk-theme")
+            toInstall_Yay.append("sddm-theme-astronaut")
+            toInstall_Yay.append("spleen-font")
+            toInstall_Yay.append("ttf-borg-sans-mono")
+            toInstall_Pacman.append("ttf-linux-libertine")
+            toInstall_Pacman.append("ttf-mononoki-nerd")
+            toInstall_Pacman.append("ttf-roboto")
+            toInstall_Pacman.append("ttf-ubuntu-font-family")
+            toInstall_Yay.append("tela-icon-theme")
+            toInstall_Yay.append("adwaita-dark")
+            toInstall_Yay.append("qogir-icon-theme")
+            toInstall_Yay.append("archlinux-themes-sddm")
 
 
 
@@ -208,11 +206,18 @@ Apps()
 
 FIT()
 
+
 def Install():
-    installList = ""
-    for c in toInstall:
-        installList = installList + " " + c
-    os.system('yay -S %s' % installList)
+    installList_Pacman = ""
+    installList_Yay = ""
+
+    for p in toInstall_Pacman:
+        installList_Pacman = installList_Pacman + " " + p
+    os.system('yay -S %s' % installList_Pacman)
+
+    for y in toInstall_Yay:
+        installList_Yay = installList_Yay + " " + y
+    os.system('yay -S %s' % installList_Yay)
 
     os.system('sudo systemctl enable %s' % dm)
 
