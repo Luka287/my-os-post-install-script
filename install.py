@@ -21,8 +21,6 @@ crux = str(location.stdout)
 
 curdir = crux[2:-3]
 
-toInstall_Pacman = []
-toInstall_Yay = []
 dm = ""
 
 def checkApp(app):
@@ -77,6 +75,9 @@ def Yay():
 
 
 def Drivers():
+
+    toInstall_Pacman = []
+
     askDownDr = str(input('Do you want wifi and other drivers set up on your system? [y/n]: '))
     if(askDownDr == "y" or askDownDr == "Y"):
         toInstall_Pacman.append("wireless_tools")
@@ -89,8 +90,19 @@ def Drivers():
         toInstall_Pacman.append("pulseaudio")
         toInstall_Pacman.append("acpi")
 
+    def Install_Pacman():
+        installList_Pacman = ""
+        
+        for p in toInstall_Pacman:
+            installList_Pacman = installList_Pacman + " " + p
+        os.system('yay -S %s' % installList_Pacman)
+
+    Install_Pacman()
+
 
 def Display():
+    toInstall_Pacman = []
+
     askDownDis = str(input('Do you want to install Xorg on your system? [y/n]: '))
     if(askDownDis == "y" or askDownDis == "Y"):
         toInstall_Pacman.append("xorg")
@@ -107,9 +119,22 @@ def Display():
             elif(insDm == "2"):
                 toInstall_Pacman.append("sddm")
                 dm = "sddm"
+    
+    def Install_Pacman():
+        installList_Pacman = ""
+        
+        for p in toInstall_Pacman:
+            installList_Pacman = installList_Pacman + " " + p
+        os.system('yay -S %s' % installList_Pacman)
+
+    Install_Pacman()
+
 
 
 def WM():
+    toInstall_Pacman = []
+    toInstall_Yay = []
+
     askDownWm = str(input('Which WM/DEs do you want to install? [1-awesome 2-dwm 3-hyprland 4-plasma 5-gnome]: '))
     for v in askDownWm:
         if(v == "1"):
@@ -126,7 +151,32 @@ def WM():
             toInstall_Pacman.append("gnome")
 
 
+    def Install_Pacman():
+        installList_Pacman = ""
+        
+        for p in toInstall_Pacman:
+            installList_Pacman = installList_Pacman + " " + p
+        os.system('yay -S %s' % installList_Pacman)
+
+
+    def Install_Yay():
+        installList_Yay = ""
+
+        for y in toInstall_Yay:
+            installList_Yay = installList_Yay + " " + y
+        os.system('yay -S %s' % installList_Yay)
+
+
+    Install_Pacman()
+    Install_Yay()
+
+
+
+
 def Apps():
+    toInstall_Pacman = []
+    toInstall_Yay = []
+    
     print("Apps included: librewolf, vscodium, vlc, kitty, thunar, keepassxc, etcher, virtualbox, tutanota, qbittorrent, neovim, htop, gparted, nitrogen, android_tools ")
     askDownApp = str(input('Do you want to install your apps? [y/n]: '))
     if(askDownApp == "y" or askDownApp == "Y"):
@@ -167,8 +217,33 @@ def Apps():
         toInstall_Pacman.append("swaybg")
 
 
+        def Install_Pacman():
+            installList_Pacman = ""
+            
+            for p in toInstall_Pacman:
+                installList_Pacman = installList_Pacman + " " + p
+            os.system('yay -S %s' % installList_Pacman)
+
+
+        def Install_Yay():
+            installList_Yay = ""
+
+            for y in toInstall_Yay:
+                installList_Yay = installList_Yay + " " + y
+            os.system('yay -S %s' % installList_Yay)
+
+
+        Install_Pacman()
+        Install_Yay()
+
+
+
+
 
 def FIT():
+        toInstall_Pacman = []
+        toInstall_Yay = []
+
         askDownApp = str(input('Do you want to install your fonts, themes and icons? [y/n]: '))
         if(askDownApp == "y" or askDownApp == "Y"):
             toInstall_Pacman.append("adobe-source-sans-fonts")
@@ -196,6 +271,26 @@ def FIT():
             toInstall_Yay.append("adwaita-dark")
             toInstall_Yay.append("qogir-icon-theme")
             toInstall_Yay.append("archlinux-themes-sddm")
+
+        
+        def Install_Pacman():
+            installList_Pacman = ""
+            
+            for p in toInstall_Pacman:
+                installList_Pacman = installList_Pacman + " " + p
+            os.system('yay -S %s' % installList_Pacman)
+
+
+        def Install_Yay():
+            installList_Yay = ""
+
+            for y in toInstall_Yay:
+                installList_Yay = installList_Yay + " " + y
+            os.system('yay -S %s' % installList_Yay)
+
+
+        Install_Pacman()
+        Install_Yay()
 
 
 
