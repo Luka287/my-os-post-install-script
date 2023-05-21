@@ -89,6 +89,7 @@ def Drivers():
         toInstall_Pacman.append("pulseaudio")
         toInstall_Pacman.append("acpi")
 
+
 def Display():
     askDownDis = str(input('Do you want to install Xorg on your system? [y/n]: '))
     if(askDownDis == "y" or askDownDis == "Y"):
