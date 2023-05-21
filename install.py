@@ -305,23 +305,4 @@ Apps()
 FIT()
 
 
-def Install_Pacman():
-    installList_Pacman = ""
-    
-    for p in toInstall_Pacman:
-        installList_Pacman = installList_Pacman + " " + p
-    os.system('yay -S %s' % installList_Pacman)
-
-
-def Install_Yay():
-    installList_Yay = ""
-
-    for y in toInstall_Yay:
-        installList_Yay = installList_Yay + " " + y
-    os.system('yay -S %s' % installList_Yay)
-
-
-Install_Pacman()
-Install_Yay()
-
 print("Installation complate!")
